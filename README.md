@@ -1,5 +1,9 @@
 # Weather APP
 Weather APP is a desktop app that use [Dark Sky API](https://darksky.net/dev) to obtain weather forecast, and [PyQT 5](https://pypi.org/project/PyQt5/) for the GUI.
+<br/><br/><br/><br/>
+![alt text](Docs/DarkSky.jpg?raw=true)
+![alt text](Docs/qt.png?raw=true)
+<br/><br/><br/><br/>
 <br/>There are 6 Different functions: 
 
 1. Starting Page
