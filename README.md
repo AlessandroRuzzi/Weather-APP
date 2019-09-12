@@ -12,10 +12,15 @@ Weather APP is a desktop app that use [Dark Sky API](https://darksky.net/dev) to
 # How It Works
 ### 1. Starting page
 
-![alt text](https://raw.githubusercontent.com/alexruzzi98//branch/path/to/Main.png)
+![alt text](Docs/Main.png?raw=true)
 
 ### 2. Currenct location forecast.
+![alt text](Docs/Curr_loc.png?raw=true)
 ### 3. Search for specific countries'forecast.
+![alt text](Docs/Search.png?raw=true)
 ### 4. Next hours forecast for both current location and searched location.
+![alt text](Docs/next_hours.png?raw=true)
 ### 5. Next 5 days forecast for both current location and searched location.
+![alt text](Docs/next_days.png?raw=true)
 ### 6. Error Handling when searchin for wrong countries.
+![alt text](Docs/error.png?raw=true)
