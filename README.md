@@ -14,7 +14,7 @@ Weather APP is a desktop app that use [Dark Sky API](https://darksky.net/dev) to
 
 ![alt text](Docs/Main.png?raw=true)
 <br/><br/><br/><br/>
-:large_blue_circle: At the beginning you have to subscribe to to linked site to obtain your code for weather forecast and you can click on the search button to obtain the forecast of your current location.
+:small_blue_diamond: At the beginning you have to subscribe to to linked site to obtain your code for weather forecast and you can click on the search button to obtain the forecast of your current location.
 <br/><br/><br/><br/>
 
 ### 2. Currenct location forecast:
