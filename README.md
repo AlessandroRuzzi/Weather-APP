@@ -14,35 +14,35 @@ Weather APP is a desktop app that use [Dark Sky API](https://darksky.net/dev) to
 
 ![alt text](Docs/Main.png?raw=true)
 <br/><br/><br/><br/>
-:large_blue_circle:At the beginning you have to subscribe to to linked site to obtain your code for weather forecast and you can click on the search button to obtain the forecast of your current location.
+:large_blue_circle: At the beginning you have to subscribe to to linked site to obtain your code for weather forecast and you can click on the search button to obtain the forecast of your current location.
 <br/><br/><br/><br/>
 
 ### 2. Currenct location forecast:
 ![alt text](Docs/Curr_loc.png?raw=true)
 <br/><br/><br/><br/>
-:large_blue_circle:Here are showed all the information about the current position in that moment,then there is the search bar to look for other cities and also next hours button and next days buttons
+:large_blue_circle: Here are showed all the information about the current position in that moment,then there is the search bar to look for other cities and also next hours button and next days buttons
 <br/><br/><br/><br/>
 
 ### 3. Search for specific countries'forecast:
 ![alt text](Docs/Search.png?raw=true)
 <br/><br/><br/><br/>
-:large_blue_circle:Here are showed all the information about the current position in that moment for the requested city,then there is the search bar to look for other cities and also next hours button and next days buttons
+:large_blue_circle: Here are showed all the information about the current position in that moment for the requested city,then there is the search bar to look for other cities and also next hours button and next days buttons
 <br/><br/><br/><br/>
 ### 4. Next hours forecast for both current location and searched location:
 ![alt text](Docs/next_hours.png?raw=true)
 <br/><br/><br/><br/>
-:large_blue_circle:Here are showed the temperature and the precipitation probability for the next hours for the current location or for the requested city and also the current temperature(the big one),then there is the back button to return to the previous page.
+:large_blue_circle: Here are showed the temperature and the precipitation probability for the next hours for the current location or for the requested city and also the current temperature(the big one),then there is the back button to return to the previous page.
 <br/><br/><br/><br/>
 ### 5. Next 5 days forecast for both current location and searched location:
 ![alt text](Docs/next_days.png?raw=true)
 <br/><br/><br/><br/>
-:large_blue_circle:Here are showed the temperature and the precipitation probability for alle the hours of the selected for the current location or for the requested city and also the Max. and Min. temperatures of the day(the big one),then there is the back button to return to the previous page.
+:large_blue_circle: Here are showed the temperature and the precipitation probability for alle the hours of the selected for the current location or for the requested city and also the Max. and Min. temperatures of the day(the big one),then there is the back button to return to the previous page.
 ### 6. Error Handling when searchin for wrong countries:
 ![alt text](Docs/error.png?raw=true)
 <br/><br/><br/><br/>
-:large_blue_circle:If the user try to search for a non exisiting country, then this error page will be displayed.
+:large_blue_circle: If the user try to search for a non exisiting country, then this error page will be displayed.
 <br/><br/><br/><br/>
 
-# Credits
 
 # License
+:books: This project is distributed under the terms of the Apache License v2.0. See file [LICENSE](LICENSE) for further reference.
