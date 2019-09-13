@@ -1,0 +1,25 @@
+"""""***********************************************************************
+* Project           : WEATHER APP 2019
+*
+* Program name      : main.py
+*
+* Author            : Alessandro Ruzzi
+*
+* Date created      : 09/09/2019
+*
+* Purpose           : using Dark Sky API for forecast and PYQT5 for Graphic visualization
+                      to implement a Weather app
+
+                      Main function:
+                        -Current Position's Weather Forecast
+                        -Next days function
+                        -Next hours function
+                        -Search function
+                        -Error Handling
+*
+* Revision History  :
+*
+* Date          Author        Ref    Revision (13/09/2019)
+* 13/09/2019    A. Ruzzi      4      Correct the key insertion and commented the code properly
+*
+***********************************************************************"""
