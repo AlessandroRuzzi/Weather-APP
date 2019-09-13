@@ -1,3 +1,4 @@
+
 """Setting up the page for requested cities"""
 
 
@@ -5,7 +6,7 @@ class Ui_OtherWindow_search(object):
 
     def __init__(self,location):
          self.location = location
-        
+
 #next hours function
 
     def on_hour(self):
@@ -14,7 +15,7 @@ class Ui_OtherWindow_search(object):
         self.ui.setupUi(self.window)
         self.OtherWindow.hide()
         self.window.show()
-        
+
 #next days function
 
     def on_day(self,number):
@@ -159,7 +160,7 @@ class Ui_OtherWindow_search(object):
         OtherWindow.setWindowTitle(_translate("OtherWindow", "Current Weather"))
         self.label1.setText(_translate("OtherWindow","Current Forecast: "))
         self.label4.setText(_translate("OtherWindow", "Search: "))
-        
+
         """handling with different time zone"""
         loc2 = str(self.curr_loc[0]['name'] + "," + self.curr_loc[0]['cc'])
 
@@ -171,7 +172,7 @@ class Ui_OtherWindow_search(object):
         time =get_time(now_time)
         self.curr_loc_forecast.time = time
         """end of error handling"""
-        
+
         l = get_next_5_days()
         self.l = l
         self.label.setText(_translate("OtherWindow","Current Location: " + (curr_loc[0]['name']) + "(" + curr_loc[0]['admin1'] + "," + curr_loc[0]['cc'] + ")" +
@@ -200,6 +201,6 @@ class Ui_OtherWindow_search(object):
         self.btn_open7.setText(_translate("Current Weather", "🔍"))
 
         self.textbox.setPlaceholderText("Example: Milan,IT")
-        
+
 
 """end of setting """
