@@ -1,5 +1,9 @@
+"""setting up the page for the current location forecast"""
+
 
 class Ui_OtherWindow(object):
+
+#next days functions
 
     def on_day(self,number):
         self.window = QtWidgets.QMainWindow()
@@ -7,7 +11,6 @@ class Ui_OtherWindow(object):
         self.l = l
         day = self.l[number]
         loc2 = str(self.curr_loc[0]['name'] + "," + self.curr_loc[0]['cc'])
-
         location = get_lat_and_long(loc2)
         self.location = location
         self.ui = Ui_OtherWindow_day(self.curr_loc, self.curr_loc_forecast, self.location,day,number)
@@ -15,16 +18,18 @@ class Ui_OtherWindow(object):
         self.Otherwindow.hide()
         self.window.show()
 
+#next hours function
+
     def on_hour(self):
         self.window = QtWidgets.QMainWindow()
-
         loc2 = str(self.curr_loc[0]['name'] + "," + self.curr_loc[0]['cc'])
-
         location = get_lat_and_long(loc2)
         self.ui = Ui_OtherWindow_hours(self.curr_loc,self.curr_loc_forecast,location)
         self.ui.setupUi(self.window)
         self.Otherwindow.hide()
         self.window.show()
+
+#search function
 
     def on_search(self):
         try:
@@ -39,9 +44,7 @@ class Ui_OtherWindow(object):
 
         except:
             loc2 = str(self.curr_loc[0]['name'] + "," + self.curr_loc[0]['cc'])
-
             location = get_lat_and_long(loc2)
-
             self.window = QtWidgets.QMainWindow()
             self.ui = Ui_OtherWindow_back(location)
             self.ui.setupUi(self.window)
@@ -187,3 +190,5 @@ class Ui_OtherWindow(object):
         self.btn_open7.setText(_translate("Current Weather", "🔍"))
 
         self.textbox.setPlaceholderText("Example: Milan,IT")
+
+"""end of setting"""
