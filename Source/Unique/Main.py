@@ -19,8 +19,8 @@
 *
 * Revision History  :
 *
-* Date          Author        Ref    Revision (11/09/2019)
-* 11/09/2019    A. Ruzzi      3      Completed next days function,next hours function and the first page of the app.
+* Date          Author        Ref    Revision (13/09/2019)
+* 13/09/2019    A. Ruzzi      4      Correct the key insertion and commented the code properly
 *
 ***********************************************************************"""
 
@@ -45,6 +45,9 @@ except:
     print("error with libraries")
 
 """ Functions"""
+
+
+# convert time to adpat to different time zone
 
 def get_time(now_time):
     if(int(now_time.month) <10 ):
@@ -72,10 +75,15 @@ def get_time(now_time):
     return time
 
 
+#get latitude and longitude of the requested cities
+
 def get_lat_and_long(name):
     geolocator = Nominatim()
     location = geolocator.geocode((name))
     return location
+
+
+#create a lis of the next five days after today
 
 def get_next_5_days():
     d = get_dict_of_week()
@@ -105,12 +113,16 @@ def get_next_5_days():
     return l
 
 
+#create a dictionary to translate from italian to english, change the italian words with your language traduction
+
 def get_dict_of_week():
     d = {'lunedì':'Monday', 'martedì':'Tuesday' , 'mercoledì':'Wednesday', 'giovedì':'Thursday','venerdì':'Friday','sabato':'Saturday','domenica':'Sunday'}
     return d
 
+
+#get the forecast of the current location with the Dark Sky API
+
 def get_forecast():
-    key = 'd367ff7d6caa24d3db4e97acd53eeb87'
 
     myloc = geocoder.ip('me')
 
@@ -124,10 +136,10 @@ def get_forecast():
     # end of conversion
     return current_loc_forecast,curr_loc
 
+
+#get the forecast of the searched cities with the Dark Sky API
+
 def get_forecast_search(location):
-    key = 'd367ff7d6caa24d3db4e97acd53eeb87'
-
-
 
     current_loc_forecast = forecast(key, location.latitude, location.longitude)
 
@@ -142,22 +154,45 @@ def get_forecast_search(location):
     # end of conversion
     return current_loc_forecast,curr_loc
 
+
+#get the name of a city guven latitude and longitude
+
 def get_location_name(coordinates):
     result = rg.search(coordinates)
     return result
 
 
+#convert time in the right format
+
 def convert_time(time):
     date_time = datetime.fromtimestamp(time)
     return date_time.strftime("%m/%d/%Y, %H:%M:%S")
 
+
+#convert temperature from fahrenheit to celsius
+
 def convert_temperatures(temperature):
     return int(((temperature-32)*5)/9)
+
 
 """End of Functions"""
 
 
+
+
+
+
+
+
+
+
+
+"""setting up the page for the current location forecast"""
+
+
 class Ui_OtherWindow(object):
+
+#next days functions
 
     def on_day(self,number):
         self.window = QtWidgets.QMainWindow()
@@ -165,26 +200,25 @@ class Ui_OtherWindow(object):
         self.l = l
         day = self.l[number]
         loc2 = str(self.curr_loc[0]['name'] + "," + self.curr_loc[0]['cc'])
-
         location = get_lat_and_long(loc2)
         self.location = location
         self.ui = Ui_OtherWindow_day(self.curr_loc, self.curr_loc_forecast, self.location,day,number)
         self.ui.setupUi(self.window)
-        MainWindow.hide()
         self.Otherwindow.hide()
         self.window.show()
+
+#next hours function
 
     def on_hour(self):
         self.window = QtWidgets.QMainWindow()
-
         loc2 = str(self.curr_loc[0]['name'] + "," + self.curr_loc[0]['cc'])
-
         location = get_lat_and_long(loc2)
         self.ui = Ui_OtherWindow_hours(self.curr_loc,self.curr_loc_forecast,location)
         self.ui.setupUi(self.window)
-        MainWindow.hide()
         self.Otherwindow.hide()
         self.window.show()
+
+#search function
 
     def on_search(self):
         try:
@@ -194,31 +228,18 @@ class Ui_OtherWindow(object):
             self.window = QtWidgets.QMainWindow()
             self.ui = Ui_OtherWindow_search(location)
             self.ui.setupUi(self.window)
-            MainWindow.hide()
             self.Otherwindow.hide()
             self.window.show()
 
         except:
             loc2 = str(self.curr_loc[0]['name'] + "," + self.curr_loc[0]['cc'])
-
             location = get_lat_and_long(loc2)
-
             self.window = QtWidgets.QMainWindow()
             self.ui = Ui_OtherWindow_back(location)
             self.ui.setupUi(self.window)
-            MainWindow.hide()
             self.Otherwindow.hide()
             self.window.show()
 
-
-
-    def openWindow(self):
-        self.window = QtWidgets.QMainWindow()
-        self.ui = Ui_OtherWindow()
-        self.ui.setupUi(self.window)
-        MainWindow.hide()
-        self.Otherwindow.hide()
-        self.window.show()
 
     def setupUi(self, OtherWindow):
         self.Otherwindow = OtherWindow
@@ -359,19 +380,35 @@ class Ui_OtherWindow(object):
 
         self.textbox.setPlaceholderText("Example: Milan,IT")
 
+"""end of setting"""
+
+
+
+
+
+
+
+
+
+
+"""Setting up the page for requested cities"""
+
 
 class Ui_OtherWindow_search(object):
 
     def __init__(self,location):
          self.location = location
 
+#next hours function
+
     def on_hour(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = Ui_OtherWindow_hours(self.curr_loc,self.curr_loc_forecast,self.location)
         self.ui.setupUi(self.window)
-        MainWindow.hide()
         self.OtherWindow.hide()
         self.window.show()
+
+#next days function
 
     def on_day(self,number):
         self.window = QtWidgets.QMainWindow()
@@ -380,9 +417,10 @@ class Ui_OtherWindow_search(object):
         day = self.l[number]
         self.ui = Ui_OtherWindow_day(self.curr_loc, self.curr_loc_forecast, self.location,day,number)
         self.ui.setupUi(self.window)
-        MainWindow.hide()
         self.OtherWindow.hide()
         self.window.show()
+
+#search functions
 
     def on_search(self):
         try:
@@ -392,33 +430,18 @@ class Ui_OtherWindow_search(object):
            self.window = QtWidgets.QMainWindow()
            self.ui = Ui_OtherWindow_search(location)
            self.ui.setupUi(self.window)
-           MainWindow.hide()
            self.OtherWindow.hide()
            self.window.show()
 
         except:
             loc2 = str(self.curr_loc[0]['name'] + "," + self.curr_loc[0]['cc'])
-
             location = get_lat_and_long(loc2)
-
             self.location = location
             self.window = QtWidgets.QMainWindow()
             self.ui = Ui_OtherWindow_back(location)
             self.ui.setupUi(self.window)
-            MainWindow.hide()
             self.OtherWindow.hide()
             self.window.show()
-
-
-
-
-    def openWindow(self):
-        self.window = QtWidgets.QMainWindow()
-        self.ui = Ui_OtherWindow()
-        self.ui.setupUi(self.window)
-        MainWindow.hide()
-        self.OtherWindow.hide()
-        self.window.show()
 
     def setupUi(self, OtherWindow):
         self.OtherWindow = OtherWindow
@@ -530,6 +553,7 @@ class Ui_OtherWindow_search(object):
         self.label1.setText(_translate("OtherWindow","Current Forecast: "))
         self.label4.setText(_translate("OtherWindow", "Search: "))
 
+        """handling with different time zone"""
         loc2 = str(self.curr_loc[0]['name'] + "," + self.curr_loc[0]['cc'])
 
         location = get_lat_and_long(loc2)
@@ -539,6 +563,7 @@ class Ui_OtherWindow_search(object):
         now_time = datetime.now(timeZoneObj)
         time =get_time(now_time)
         self.curr_loc_forecast.time = time
+        """end of error handling"""
 
         l = get_next_5_days()
         self.l = l
@@ -570,6 +595,20 @@ class Ui_OtherWindow_search(object):
         self.textbox.setPlaceholderText("Example: Milan,IT")
 
 
+"""end of setting """
+
+
+
+
+
+
+
+
+
+
+"""settin up the page for next hours function"""
+
+
 class Ui_OtherWindow_hours(object):
 
     def __init__(self,name,forecast,location):
@@ -577,25 +616,16 @@ class Ui_OtherWindow_hours(object):
         self.curr_loc_forecast = forecast
         self.location = location
 
+#search function to turn back
 
     def on_search(self):
         location = self.location
         self.window = QtWidgets.QMainWindow()
         self.ui = Ui_OtherWindow_search(location)
         self.ui.setupUi(self.window)
-        MainWindow.hide()
         self.Otherwindow.hide()
         self.window.show()
 
-
-
-    def openWindow(self):
-        self.window = QtWidgets.QMainWindow()
-        self.ui = Ui_OtherWindow()
-        self.ui.setupUi(self.window)
-        MainWindow.hide()
-        self.Otherwindow.hide()
-        self.window.show()
 
     def setupUi(self, OtherWindow):
         self.Otherwindow = OtherWindow
@@ -772,10 +802,6 @@ class Ui_OtherWindow_hours(object):
         self.btn_open7.setGeometry(QtCore.QRect(670, 290, 100, 51))
         self.btn_open7.setObjectName("btn_open7")
 
-
-
-
-
         OtherWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(OtherWindow)
 
@@ -790,14 +816,14 @@ class Ui_OtherWindow_hours(object):
         OtherWindow.setWindowTitle(_translate("OtherWindow", "Next Hours"))
         d=get_dict_of_week()
 
+#find the day of the week
+
         today = str(datetime.today().strftime('%A'))
 
         for day in d:
             if (day == today) :
                 today = d[day]
                 break
-
-
 
         self.label1.setText(_translate("OtherWindow",self.curr_loc[0]['name'] + "-> " + today))
 
@@ -840,6 +866,8 @@ class Ui_OtherWindow_hours(object):
 
         self.btn_open.setText(_translate("Current Weather", "⇐" ))
 
+#find the hour in that moment
+
         intero = int(int(self.curr_loc_forecast.time[12])* 10 +int(self.curr_loc_forecast.time[13]))
         self.btn_open1.setText(_translate("Current Weather", str(intero) + ":00"))
         intero = ((intero +3)%24)
@@ -856,6 +884,19 @@ class Ui_OtherWindow_hours(object):
         self.btn_open7.setText(_translate("Current Weather", str(intero) + ":00"))
 
 
+"""end of setting"""
+
+
+
+
+
+
+
+
+
+
+"""setting up the page for the next days functions"""
+
 
 class Ui_OtherWindow_day(object):
 
@@ -866,25 +907,16 @@ class Ui_OtherWindow_day(object):
         self.day =day
         self.number = number
 
+#search function to turn back
 
     def on_search(self):
         location = self.location
         self.window = QtWidgets.QMainWindow()
         self.ui = Ui_OtherWindow_search(location)
         self.ui.setupUi(self.window)
-        MainWindow.hide()
         self.Otherwindow.hide()
         self.window.show()
 
-
-
-    def openWindow(self):
-        self.window = QtWidgets.QMainWindow()
-        self.ui = Ui_OtherWindow()
-        self.ui.setupUi(self.window)
-        MainWindow.hide()
-        self.Otherwindow.hide()
-        self.window.show()
 
     def setupUi(self, OtherWindow):
         self.Otherwindow = OtherWindow
@@ -1061,10 +1093,6 @@ class Ui_OtherWindow_day(object):
         self.btn_open7.setGeometry(QtCore.QRect(670, 290, 100, 51))
         self.btn_open7.setObjectName("btn_open7")
 
-
-
-
-
         OtherWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(OtherWindow)
 
@@ -1077,9 +1105,6 @@ class Ui_OtherWindow_day(object):
     def retranslateUi(self, OtherWindow):
         _translate = QtCore.QCoreApplication.translate
         OtherWindow.setWindowTitle(_translate("OtherWindow", self.day))
-
-
-
 
         self.label1.setText(_translate("OtherWindow",self.curr_loc[0]['name'] + "-> " + self.day))
 
@@ -1097,6 +1122,9 @@ class Ui_OtherWindow_day(object):
         conta = 24 -intero
 
         conta = conta +(24 * self.number)
+
+#extend hourly to get the next days forecast
+
         self.curr_loc_forecast.refresh( extend = 'hourly')
 
         self.label10.setText(_translate("OtherWindow", "Temp-> " + str(int(int(((self.curr_loc_forecast['hourly']['data'][conta]['temperature']) -32) *5)/9 )) + "°C" +
@@ -1142,12 +1170,24 @@ class Ui_OtherWindow_day(object):
 
         self.btn_open4.setText(_translate("Current Weather", "12:00"))
 
-        self.btn_open6.setText(_translate("Current Weather", "16:00"))
+        self.btn_open5.setText(_translate("Current Weather", "16:00"))
 
         self.btn_open6.setText(_translate("Current Weather", "20:00"))
 
         self.btn_open7.setText(_translate("Current Weather", "00:00"))
-                                                                                    
+
+"""end of setting"""
+
+
+
+
+
+
+
+
+
+
+"""setting up the page for error handling for wrong cities"""
 
 
 class Ui_OtherWindow_back(object):
@@ -1155,23 +1195,16 @@ class Ui_OtherWindow_back(object):
     def __init__(self,location):
         self.location = location
 
+#search function to turn back
+
     def on_search(self):
         location = self.location
         self.window = QtWidgets.QMainWindow()
         self.ui = Ui_OtherWindow_search(location)
         self.ui.setupUi(self.window)
-        MainWindow.hide()
         self.Otherwindow.hide()
         self.window.show()
 
-
-    def openWindow(self):
-        self.window = QtWidgets.QMainWindow()
-        self.ui = Ui_OtherWindow()
-        self.ui.setupUi(self.window)
-        MainWindow.hide()
-        self.Otherwindow.hide()
-        self.window.show()
 
     def setupUi(self, OtherWindow):
         self.Otherwindow = OtherWindow
@@ -1200,9 +1233,6 @@ class Ui_OtherWindow_back(object):
         self.btn_open1.setObjectName("btn_open1")
         self.btn_open1.clicked.connect(self.on_search)
 
-
-
-
         OtherWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(OtherWindow)
 
@@ -1218,18 +1248,29 @@ class Ui_OtherWindow_back(object):
         self.label.setText(_translate("OtherWindow","OPS...We cannot find your city."))
         self.btn_open1.setText(_translate("OtherWindow", "Back"))
 
+"""end of setting"""
 
 
 
 
 
 
+
+
+
+
+
+"""Setting up the first page of the application"""
 
 
 class Ui_MainWindow(object):
 
+#fucntion to open the main window
+
     def openWindow(self):
         self.window = QtWidgets.QMainWindow()
+        global key
+        key = self.textbox.text()
         self.ui = Ui_OtherWindow()
         self.ui.setupUi(self.window)
         MainWindow.hide()
@@ -1286,8 +1327,6 @@ class Ui_MainWindow(object):
         self.textbox.setStyleSheet(
             "QLineEdit { background: rgb(255, 255, 255); selection-background-color: rgb(233, 99, 0); }")
 
-
-
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
@@ -1302,12 +1341,15 @@ class Ui_MainWindow(object):
         self.btn_open.setText(_translate("Current Weather", "🔍"))
         self.label.setText(_translate("Current Weather", "Get Your Weather App"))
         self.label1.setText(_translate("Current Weather", "♦Please, Subscribe Here\n                    ⇓\n    https://darksky.net/dev\n\n♦Insert Your Code:"))
-        self.textbox.setText("Code...")
+        self.textbox.setPlaceholderText("Code...")
         self.label2.setText(_translate("Current Weather", "Powered by"))
         self.label3.setText(_translate("Current Weather","©Dark Sky"))
 
+"""end of setting"""
 
 
+
+"""main function that open the first page of the application"""
 
 if __name__ == "__main__":
 
